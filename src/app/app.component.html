@@ -1,0 +1,31 @@
+<span>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" href="#">Wiki-Giphy Search App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+          aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse collapse show" id="navbarColor01" style="">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/history">Search History</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/wikipedia">Wiki Search</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/giphy">Giphy Search</a>
+      </li>
+
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit" (click)="logout()">Logout</button>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
+
+</span>
