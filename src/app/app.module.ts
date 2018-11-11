@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {RoutingModule} from "./module/routing/routing.module";
 import {WikipediaComponent} from "./component/wikipedia/wikipedia.component";
 import {GiphyComponent} from "./component/giphy/giphy.component";
-import {HomeComponent} from './component/home/home.component';
+import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {FormsModule} from "@angular/forms";
 import {GiphyService} from "./service/giphy.service";
 import {HttpClientModule} from "@angular/common/http";
@@ -24,7 +24,7 @@ import {HistoryComponent} from "./history/history.component";
     HistoryComponent,
     WikipediaComponent,
     GiphyComponent,
-    HomeComponent,
+    DashboardComponent,
     LoginComponent
   ],
   imports: [

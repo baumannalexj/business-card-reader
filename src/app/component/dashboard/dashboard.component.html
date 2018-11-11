@@ -1,0 +1,17 @@
+
+<div id="app">
+  <div><video #video id="video" width="640" height="480" autoplay></video></div>
+  <div>
+    <button id="snap" (click)="captureImage()">Capture</button>
+    <button id="clear" (click)="clear()">Clear</button>
+  </div>
+
+  <canvas #canvas id="canvas" width="640" height="480"></canvas>
+  <ul>
+    <li *ngFor="let capture of captures">
+      <span><img src="{{ capture }}" height="640"/>
+            <button id="getImageText" (click)="getImageText(capture)">Get Card Text</button>
+      </span>
+    </li>
+  </ul>
+</div>
