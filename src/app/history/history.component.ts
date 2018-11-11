@@ -9,6 +9,7 @@ import {HistoryService} from "./history.service";
 export class HistoryComponent implements OnInit {
 
   searchHistory: any[];
+  isAdmin: any;
 
   constructor(historyService: HistoryService) {
 
@@ -31,6 +32,14 @@ export class HistoryComponent implements OnInit {
 
         this.searchHistory = historyAsArray;
       });
+
+    historyService
+      .isAdmin()
+      .subscribe(adminResult => {
+        if (adminResult) {
+          this.isAdmin = true;
+        }
+      })
 
   }
 

@@ -25,6 +25,13 @@ export class HistoryService {
     return this.searchHistoryRef.valueChanges();
   }
 
+  isAdmin() {
+    console.log(`${this.authService.userUid}`);
+    return this.db
+      .list(`admins/${this.authService.userUid}`)
+      .valueChanges();
+  }
+
   addSearchHistory(searchTerm) {
 
     this.db
