@@ -1,8 +1,11 @@
-<script>
 
-</script>
-
-
-<p>
-  home works!
-</p>
+<div id="app">
+  <div><video #video id="video" width="640" height="480" autoplay></video></div>
+  <div><button id="snap" (click)="textDetection()">Detect Text</button></div>
+  <canvas #canvas id="canvas" width="640" height="480"></canvas>
+  <ul>
+    <li *ngFor="let capture of captures">
+      <img src="{{ capture }}" height="50"/>
+    </li>
+  </ul>
+</div>
