@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthService} from "../../login/auth.service";
 import {HistoryService} from "../../history/history.service";
 import {environment} from '../../../environments/environment';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 
 @Injectable({
@@ -12,7 +13,8 @@ export class TextReaderService {
 
   constructor(private httpClient: HttpClient,
               private authService: AuthService,
-              private historyService: HistoryService) {
+              private historyService: HistoryService,
+              private db: AngularFireDatabase) {
   }
 
   getText(base64Image: string) {
@@ -47,5 +49,15 @@ export class TextReaderService {
     // this.historyService.addSearchHistory(base64Image);
 
     return this.httpClient.post(postUrl, requestBody, options)
+  }
+
+  saveBusinessCard(businessCardWithBase64Image) {
+
+    this.historyService.addSearchHistory(businessCardWithBase64Image);
+
+
+    return this.db
+      .object(`/users/${this.authService.userUid}/savedcards`)
+      .update({[Date.now()]: businessCardWithBase64Image});
   }
 }

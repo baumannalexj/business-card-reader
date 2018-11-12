@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
 
   public textElementsByArea: Array<any>;
 
+  public base64Image: string;
+
   public textTypeOptions = [
     "phone",
     "name",
@@ -69,24 +71,29 @@ export class DashboardComponent implements OnInit {
   }
 
   textDetection(capture: string) {
-    let base64Image = capture.split("base64,")[1];
+    this.base64Image = capture.split("base64,")[1];
 
-    console.log(base64Image);
+    // console.log(base64Image);
 
     this.textReaderService
-      .getText(base64Image)
+      .getText(this.base64Image)
       .subscribe((response: any) => {
         let responses = response.responses || [];
 
 
-        this.cardText = responses[0];
+        try {
+          this.cardText = responses[0];
 
-        // console.log(this.cardText);
-        this.textElementsByArea = responses[0].textAnnotations[0].description.split("\n");
-        console.log(this.textElementsByArea);
+          // console.log(this.cardText);
+          this.textElementsByArea = responses[0].textAnnotations[0].description.split("\n");
+          console.log(this.textElementsByArea);
 
 
-        this.captures = [capture];
+          this.captures = [capture];
+        } catch (error) {
+          alert("Unable to parse text. Try choosing another image with clearer text.")
+        }
+
 
 
       });
@@ -94,16 +101,25 @@ export class DashboardComponent implements OnInit {
 
   saveBusinessCard(userForm: NgForm) {
 
-    let formModels = [];
+    let businessCard = {};
 
     [document.querySelectorAll(".form-control.form-control-lg option[selected]")][0]
     // @ts-ignore
       .forEach((e, i) => {
         // @ts-ignore
-        formModels[e.value] = [document.querySelectorAll("input[id*='input']")][0][i].value
+        businessCard[e.value] = [document.querySelectorAll("input[id*='input']")][0][i].value
       });
 
-    console.log(formModels);
+    businessCard["base64Image"] = this.base64Image;
+
+    this.textReaderService
+      .saveBusinessCard(businessCard)
+      .then(result => {
+        console.log("card saved. result:" + result);
+      })
+      .catch(error => console.error(error));
+
+    console.log(businessCard);
 
   }
 }
