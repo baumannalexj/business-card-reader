@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {TextReaderService} from "./text-reader.service";
+import {FormsModule} from '@angular/forms';
+import {NgForm} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -35,7 +39,9 @@ export class DashboardComponent implements OnInit {
     "miscellaneous"
   ];
 
-  selectedTextType: any;
+  myform: FormGroup;
+
+  public formModel: Array<any>;
 
 
   public constructor(private textReaderService: TextReaderService) {
@@ -88,5 +94,9 @@ export class DashboardComponent implements OnInit {
         this.captures = [capture];
 
       });
+  }
+
+  saveBusinessCard(userForm: NgForm) {
+    console.log(userForm);
   }
 }
