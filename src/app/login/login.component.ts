@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
   emailLogin(email: string, password: string) {
     this.authService.loginWithEmail(this.email, this.password)
-        .then(() => this.router.navigate(['/home']))
+        .then(() => this.router.navigate(['/dashboard']))
         .catch( error => {
           console.log(error);
           this.router.navigate(['/login']);

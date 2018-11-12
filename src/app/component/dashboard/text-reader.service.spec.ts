@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { WikipediaService } from './wikipedia.service';
+import { TextReaderService } from './text-reader.service';
 
 describe('TextReaderService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WikipediaService]
+      providers: [TextReaderService]
     });
   });
 
-  it('should be created', inject([WikipediaService], (service: WikipediaService) => {
+  it('should be created', inject([TextReaderService], (service: TextReaderService) => {
     expect(service).toBeTruthy();
   }));
 });
