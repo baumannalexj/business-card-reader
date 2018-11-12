@@ -19,7 +19,23 @@ export class DashboardComponent implements OnInit {
 
   public cardText: {};
 
-  public parsedTextByArea: Array<any>;
+  public textElementsByArea: Array<any>;
+
+  public textOptions = [
+    "phone",
+    "name",
+    "address",
+    "email",
+    "title",
+    "companyPhone",
+    "companyName",
+    "companyAddress",
+    "companyDescription",
+    "companyWebsite",
+    "miscellaneous"
+  ];
+
+  selectedTextType: any;
 
 
   public constructor(private textReaderService: TextReaderService) {
@@ -65,9 +81,11 @@ export class DashboardComponent implements OnInit {
         this.cardText = responses[0];
 
         console.log(this.cardText);
-        this.parsedTextByArea = responses[0].textAnnotations[0].description.split("\n");
-        console.log(this.parsedTextByArea);
-        debugger;
+        this.textElementsByArea = responses[0].textAnnotations[0].description.split("\n");
+        console.log(this.textElementsByArea);
+
+
+        this.captures = [capture];
 
       });
   }
