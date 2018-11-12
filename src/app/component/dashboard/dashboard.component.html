@@ -22,10 +22,10 @@
           <select class="form-control form-control-lg">
 
             <option [attr.selected]="i == optionIndex ? 'selected' : null"
-                    [value]=textOption
-                    *ngFor="let textOption of textOptions; let optionIndex = index" [attr.data-index]="optionIndex"
-                    >
-              {{textOption}}
+                    [value]="textTypeOption"
+                    *ngFor="let textTypeOption of textTypeOptions; let optionIndex = index" [attr.data-index]="optionIndex"
+            >
+              {{textTypeOption}}
             </option>
           </select>
 

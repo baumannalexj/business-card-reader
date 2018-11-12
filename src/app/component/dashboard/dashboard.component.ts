@@ -1,8 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TextReaderService} from "./text-reader.service";
-import {FormsModule} from '@angular/forms';
 import {NgForm} from '@angular/forms';
-import {FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -25,7 +23,7 @@ export class DashboardComponent implements OnInit {
 
   public textElementsByArea: Array<any>;
 
-  public textOptions = [
+  public textTypeOptions = [
     "phone",
     "name",
     "address",
@@ -39,28 +37,25 @@ export class DashboardComponent implements OnInit {
     "miscellaneous"
   ];
 
-  myform: FormGroup;
-
-  public formModel: Array<any>;
-
 
   public constructor(private textReaderService: TextReaderService) {
     this.captures = [];
   }
 
 
-  public ngOnInit() { }
+  public ngOnInit() {
+  }
 
   public ngAfterViewInit() {
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
         this.video.nativeElement.src = window.URL.createObjectURL(stream);
         this.video.nativeElement.play();
       });
     }
   }
 
-  public clear(){
+  public clear() {
     this.captures = [];
   }
 
@@ -86,17 +81,29 @@ export class DashboardComponent implements OnInit {
 
         this.cardText = responses[0];
 
-        console.log(this.cardText);
+        // console.log(this.cardText);
         this.textElementsByArea = responses[0].textAnnotations[0].description.split("\n");
         console.log(this.textElementsByArea);
 
 
         this.captures = [capture];
 
+
       });
   }
 
   saveBusinessCard(userForm: NgForm) {
-    console.log(userForm);
+
+    let formModels = [];
+
+    [document.querySelectorAll(".form-control.form-control-lg option[selected]")][0]
+    // @ts-ignore
+      .forEach((e, i) => {
+        // @ts-ignore
+        formModels[e.value] = [document.querySelectorAll("input[id*='input']")][0][i].value
+      });
+
+    console.log(formModels);
+
   }
 }
