@@ -43,6 +43,7 @@ export class TextReaderService {
       }
     };
 
+    //TODO firebase is locked due to too much data
     this.historyService.addSearchHistory(base64Image);
 
     return this.httpClient.post(postUrl, requestBody, options)

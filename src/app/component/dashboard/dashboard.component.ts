@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  getImageText(capture: string) {
+  textDetection(capture: string) {
     let base64Image = capture.split("base64,")[1];
 
     console.log(base64Image);
