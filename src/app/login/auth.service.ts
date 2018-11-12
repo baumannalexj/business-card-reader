@@ -50,6 +50,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password) //angular fire always returns promises
       .then((auth) => {
         console.log(auth.user.uid);
+        debugger;
         const createdAt = firebase.database.ServerValue.TIMESTAMP;
         console.log('CREATED AT');
         console.log(createdAt);

@@ -13,6 +13,7 @@ export class HistoryService {
   constructor(private authService: AuthService,
               private db: AngularFireDatabase) {
 
+
     this.CURRENT_SESSION_HISTORY_PATH = `/currentSession/businesscardreader/${this.authService.userUid}/searches`;
 
     console.log(this.CURRENT_SESSION_HISTORY_PATH);

@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {RoutingModule} from "./module/routing/routing.module";
-import {WikipediaComponent} from "./component/wikipedia/wikipedia.component";
 import {GiphyComponent} from "./component/giphy/giphy.component";
 import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {FormsModule} from "@angular/forms";
@@ -17,15 +16,15 @@ import {LoginComponent} from "./login/login.component";
 import {environment} from '../environments/environment';
 import {AuthService} from "./login/auth.service";
 import {HistoryComponent} from "./history/history.component";
+import {FormGroup} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HistoryComponent,
-    WikipediaComponent,
     GiphyComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
