@@ -31,7 +31,7 @@ export class GiphyService {
       `&rating=G` +
       `&lang=en`;
 
-    this.historyService.addSearchHistory(searchText);
+    this.historyService.addHistory(searchText);
 
     return this.httpClient.get(queryUrl);
   }
