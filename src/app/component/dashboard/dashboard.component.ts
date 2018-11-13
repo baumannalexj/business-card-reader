@@ -129,6 +129,11 @@ export class DashboardComponent implements OnInit {
       .subscribe((queryResult: any) => {
         let businessCard = queryResult[0];
 
+        if (!businessCard) {
+          alert(`no business card found for \"${name}\"`);
+          return;
+        }
+
 
         console.log(businessCard);
         console.log(this.textElementsByArea);

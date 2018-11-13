@@ -1,6 +1,6 @@
 <form (ngSubmit)="getCardFromSearch(queryText.value)" class="form-inline my-2 my-lg-0">
 
-  Search for saved business cards based on full name
+  <b>Search for saved business cards based on full name (can't search on emails -- angular-firebase-db wasn't allowing special character queries)</b>
   <input class="form-control mr-sm-2"
          type="search"
          #queryText
