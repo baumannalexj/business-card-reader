@@ -1,13 +1,17 @@
 <form (ngSubmit)="getCardFromSearch(queryText.value)" class="form-inline my-2 my-lg-0">
 
-  <b>Search for saved business cards based on full name (can't search on emails -- angular-firebase-db wasn't allowing special character queries)</b>
+  <div><b>Search for saved business cards based on full name</b>
+    <br>(can't search on emails -- angular-firebase-db wasn't allowing special character queries)
+  </div>
+
   <input class="form-control mr-sm-2"
          type="search"
          #queryText
-         placeholder="patrick bateman" >
+         placeholder="patrick bateman">
 
   <button class="btn btn-outline-success my-2 my-sm-0"
-          type="submit">Search</button>
+          type="submit">Search
+  </button>
 </form>
 
 
@@ -38,7 +42,8 @@
           <select class="form-control form-control-lg">
 
             <option [attr.selected]="i == optionIndex ? 'selected' : null"
-                    *ngFor="let textTypeOption of textTypeOptions; let optionIndex = index" [attr.data-index]="optionIndex"
+                    *ngFor="let textTypeOption of textTypeOptions; let optionIndex = index"
+                    [attr.data-index]="optionIndex"
                     value="{{textTypeOption}}"
 
                     disabled
@@ -55,7 +60,7 @@
                  class="form-control"
                  id="input{{i}}"
                  value="{{textElement}}"
-                 >
+          >
         </span>
       </div>
     </div>
