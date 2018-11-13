@@ -1,3 +1,20 @@
+<form (ngSubmit)="getCardFromSearch(queryText.value)" class="form-inline my-2 my-lg-0">
+
+  <div><b>Search for saved business cards based on full name</b>
+    <br>(can't search on emails -- angular-firebase-db wasn't allowing special character queries)
+  </div>
+
+  <input class="form-control mr-sm-2"
+         type="search"
+         #queryText
+         placeholder="patrick bateman">
+
+  <button class="btn btn-outline-success my-2 my-sm-0"
+          type="submit">Search
+  </button>
+</form>
+
+
 <div id="app">
   <div>
     <video #video id="video" width="640" height="480" autoplay></video>
@@ -15,6 +32,9 @@
         novalidate
   >
 
+    <b>TODO having trouble debugging why select options won't change value, so made them disabled</b>
+    <br>
+    Please check the following information, esp. full name which is used to search.
     <div *ngFor="let textElement of textElementsByArea; let i = index" [attr.data-index]="i">
 
       <div class="form-group row">
@@ -22,9 +42,13 @@
           <select class="form-control form-control-lg">
 
             <option [attr.selected]="i == optionIndex ? 'selected' : null"
-                    [value]="textTypeOption"
-                    *ngFor="let textTypeOption of textTypeOptions; let optionIndex = index" [attr.data-index]="optionIndex"
+                    *ngFor="let textTypeOption of textTypeOptions; let optionIndex = index"
+                    [attr.data-index]="optionIndex"
+                    value="{{textTypeOption}}"
+
+                    disabled
             >
+            <!--TODO select list options don't change value when selected-->
               {{textTypeOption}}
             </option>
           </select>
@@ -36,7 +60,7 @@
                  class="form-control"
                  id="input{{i}}"
                  value="{{textElement}}"
-                 >
+          >
         </span>
       </div>
     </div>
@@ -56,7 +80,11 @@
 
       <span>
             <img src="{{ capture }}" height="600"/>
-            <button class="btn btn-primary" id="getImageText" (click)="textDetection(capture)">Get Card Text</button>
+            <button class="btn btn-primary"
+                    id="getImageText"
+                    (click)="textDetection(capture)"
+                    onclick="gtag('event', 'captureText');"
+            >Get Card Text</button>
       </span>
     </li>
   </ul>

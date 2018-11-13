@@ -19,7 +19,7 @@ export class TextReaderService {
 
   getText(base64Image: string) {
     var postUrl =
-      "https://vision.googleapis.com/v1/images:annotate" +
+      `${environment.googleCloudConfig.cloudVision.baseUrl}` +
       `?key=${environment.googleCloudConfig.apiKey}`;
 
 
@@ -45,19 +45,28 @@ export class TextReaderService {
       }
     };
 
-    //TODO firebase is locked due to too much data
-    // this.historyService.addSearchHistory(base64Image);
+    this.historyService.addHistory("User performed text detection.");
 
     return this.httpClient.post(postUrl, requestBody, options)
   }
 
   saveBusinessCard(businessCardWithBase64Image) {
 
-    this.historyService.addSearchHistory(businessCardWithBase64Image);
-
+    this.historyService.addHistory(`User saved business card with email:${businessCardWithBase64Image.email}`);
 
     return this.db
-      .object(`/users/${this.authService.userUid}/savedcards`)
-      .update({[Date.now()]: businessCardWithBase64Image});
+      .object(`/users/${this.authService.userUid}/businessCards`)
+      .update({[businessCardWithBase64Image.name]: businessCardWithBase64Image});
+  }
+
+  getBusinessCardByFullName(name: string) {
+    return this.db.list(`/users/${this.authService.userUid}/businessCards`,
+      (ref) =>
+        ref
+          .orderByChild("name")
+          .equalTo(name)
+
+      ).valueChanges()
+
   }
 }

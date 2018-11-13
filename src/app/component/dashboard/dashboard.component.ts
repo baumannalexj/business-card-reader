@@ -39,8 +39,7 @@ export class DashboardComponent implements OnInit {
     "miscellaneous"
   ];
 
-
-  public constructor(private textReaderService: TextReaderService) {
+  public constructor(private businessCardService: TextReaderService) {
     this.captures = [];
   }
 
@@ -59,6 +58,7 @@ export class DashboardComponent implements OnInit {
 
   public clear() {
     this.captures = [];
+    this.textElementsByArea = null;
   }
 
   public captureImage() {
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
 
     // console.log(base64Image);
 
-    this.textReaderService
+    this.businessCardService
       .getText(this.base64Image)
       .subscribe((response: any) => {
         let responses = response.responses || [];
@@ -95,7 +95,6 @@ export class DashboardComponent implements OnInit {
         }
 
 
-
       });
   }
 
@@ -107,19 +106,58 @@ export class DashboardComponent implements OnInit {
     // @ts-ignore
       .forEach((e, i) => {
         // @ts-ignore
-        businessCard[e.value] = [document.querySelectorAll("input[id*='input']")][0][i].value
+        let fieldValue = [document.querySelectorAll("input[id*='input']")][0][i].value;
+        businessCard[e.value] = fieldValue.toLowerCase();
       });
 
     businessCard["base64Image"] = this.base64Image;
 
-    this.textReaderService
+    this.businessCardService
       .saveBusinessCard(businessCard)
       .then(result => {
         console.log("card saved. result:" + result);
+        alert("card was saved!");
       })
       .catch(error => console.error(error));
 
     console.log(businessCard);
 
+  }
+
+  getCardFromSearch(name: string) {
+    this.businessCardService.getBusinessCardByFullName(name)
+      .subscribe((queryResult: any) => {
+        let businessCard = queryResult[0];
+
+        if (!businessCard) {
+          alert(`no business card found for \"${name}\"`);
+          return;
+        }
+
+
+        console.log(businessCard);
+        console.log(this.textElementsByArea);
+
+
+        let textElements = [];
+        this.textTypeOptions.map(fieldName => {
+          try {
+            textElements[fieldName] = businessCard[fieldName];
+          } catch (error) {
+            console.error(error);
+          }
+
+        });
+
+        this.textElementsByArea = textElements;
+        //TODO can't figure out why assigning this.textElementsByArea doesn't trigger the dom to show the saved card
+        //TODO fields again, but looks no different than saveBusinessCard()
+
+        console.log(this.textElementsByArea);
+        this.captures.push("data:image/png;base64," + businessCard.base64Image);
+
+
+
+      })
   }
 }

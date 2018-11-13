@@ -3,10 +3,8 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {RoutingModule} from "./module/routing/routing.module";
-import {GiphyComponent} from "./component/giphy/giphy.component";
 import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {FormsModule} from "@angular/forms";
-import {GiphyService} from "./service/giphy.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthGuard} from "./login/auth.guard";
 import {AngularFireModule} from '@angular/fire';
@@ -22,7 +20,6 @@ import {FormGroup} from '@angular/forms';
   declarations: [
     AppComponent,
     HistoryComponent,
-    GiphyComponent,
     DashboardComponent,
     LoginComponent,
   ],
@@ -37,7 +34,6 @@ import {FormGroup} from '@angular/forms';
 
   ],
   providers: [
-    GiphyService,
     AuthGuard,
     AuthService
   ],

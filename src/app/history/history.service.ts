@@ -33,7 +33,7 @@ export class HistoryService {
       .valueChanges();
   }
 
-  addSearchHistory(searchTerm) {
+  addHistory(searchTerm) {
 
     this.db
       .object(this.CURRENT_SESSION_HISTORY_PATH)
