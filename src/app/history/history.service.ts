@@ -9,6 +9,7 @@ export class HistoryService {
 
   private searchHistoryRef: any;
   private CURRENT_SESSION_HISTORY_PATH: string;
+  public isAdmin;
 
   constructor(private authService: AuthService,
               private db: AngularFireDatabase) {
@@ -20,17 +21,12 @@ export class HistoryService {
 
     this.searchHistoryRef =
       this.db.list(this.CURRENT_SESSION_HISTORY_PATH);
+
+    this.isAdmin = this.authService.isAdmin;
   }
 
   getSearchHistory() {
     return this.searchHistoryRef.valueChanges();
-  }
-
-  isAdmin() {
-    console.log(`${this.authService.userUid}`);
-    return this.db
-      .list(`admins/${this.authService.userUid}`)
-      .valueChanges();
   }
 
   addHistory(searchTerm) {

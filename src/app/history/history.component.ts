@@ -33,14 +33,15 @@ export class HistoryComponent implements OnInit {
         this.searchHistory = historyAsArray;
       });
 
-    historyService
-      .isAdmin()
-      .subscribe(adminResult => {
-        if (adminResult) {
-          this.isAdmin = true;
-        }
-      })
-
+    // this.isAdmin = historyService.isAdmin.subscribe((response) => {
+    //   if (response && response.length > 0) {
+    //     this.isAdmin = true;
+    //     console.log("is admin");
+    //   } else {
+    //     this.isAdmin = false;
+    //     console.log("not admin");
+    //   }
+    // });
   }
 
   ngOnInit() {

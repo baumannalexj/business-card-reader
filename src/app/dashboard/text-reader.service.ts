@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthService} from "../../login/auth.service";
-import {HistoryService} from "../../history/history.service";
-import {environment} from '../../../environments/environment';
+
 import {AngularFireDatabase} from '@angular/fire/database';
+import {AuthService} from "../login/auth.service";
+import {HistoryService} from "../history/history.service";
+import {environment} from '../../environments/environment';
 
 
 @Injectable({

@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {RoutingModule} from "./module/routing/routing.module";
-import {DashboardComponent} from './component/dashboard/dashboard.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthGuard} from "./login/auth.guard";

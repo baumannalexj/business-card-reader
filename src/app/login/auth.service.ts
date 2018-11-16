@@ -13,8 +13,10 @@ import * as firebase from 'firebase/app';
 export class AuthService {
   authState: Observable<{} | null>;
 
-  user: Observable<{} | null>;
-  userUid: string;
+  public user: any;
+  public userUid: string;
+
+  public isAdmin: any;
 
   constructor(
     private angularFireAuth: AngularFireAuth,
@@ -29,9 +31,20 @@ export class AuthService {
           console.log('SWITCHMAP');
           console.log(user);
           console.log('SWITCHMAP');
+
           return this.db.object(`users/${user.uid}`)
             .update({email: user.email})
             .then(() => {
+
+              this.isAdmin = this.db.list(`admins/${user.uid}`).valueChanges()
+                .subscribe((response) => {
+                  if (response && response.length > 0) {
+                    this.isAdmin = true;
+                  } else {
+                    this.isAdmin = false;
+                  }
+                });
+
               return this.db.object(`users/${user.uid}`).valueChanges();
 
             }).catch((error) => {
@@ -50,7 +63,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password) //angular fire always returns promises
       .then((auth) => {
         console.log(auth.user.uid);
-        debugger;
+        // debugger;
         const createdAt = firebase.database.ServerValue.TIMESTAMP;
         console.log('CREATED AT');
         console.log(createdAt);
