@@ -117,17 +117,16 @@ export class DashboardComponent implements OnInit {
   }
 
   saveBusinessCard(userForm: NgForm) {
-    debugger;
+    
+    let businessCard = userForm.value;
 
-    let businessCard = {};
+    Object.keys(businessCard).forEach(key => {
+      businessCard[key] = businessCard[key].toLowerCase();
 
-    [document.querySelectorAll(".form-control.form-control-lg option[selected]")][0]
-    // @ts-ignore
-      .forEach((e, i) => {
-        // @ts-ignore
-        let fieldValue = [document.querySelectorAll("input[id*='input']")][0][i].value;
-        businessCard[e.value] = fieldValue.toLowerCase();
-      });
+      if (typeof businessCard[key] == 'undefined'){
+        businessCard[key] = "";
+      }
+    });
 
     businessCard["base64Image"] = this.base64Image;
 
@@ -144,6 +143,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCardFromSearch(name: string) {
+    this.clear();
     this.businessCardService.getBusinessCardByFullName(name)
       .subscribe((queryResult: any) => {
         let businessCard = queryResult[0];
