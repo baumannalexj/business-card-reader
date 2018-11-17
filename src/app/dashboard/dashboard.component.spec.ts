@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {RoutingModule} from "../module/routing/routing.module";
 
 import { DashboardComponent } from './dashboard.component';
 

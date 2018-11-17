@@ -1,7 +1,7 @@
 <form (ngSubmit)="getCardFromSearch(queryText.value)" class="form-inline my-2 my-lg-0">
 
   <div><b>Search for saved business cards based on full name</b>
-    <br>(can't search on emails -- angular-firebase-db wasn't allowing special character queries)
+    <br>(angular-firebase-db doesn't allow special character queries)
   </div>
 
   <input class="form-control mr-sm-2"
@@ -26,55 +26,6 @@
 
   <canvas #canvas id="canvas" width="640" height="480" style="display:none"></canvas>
 
-  <form *ngIf="textElementsByArea"
-        #userForm="ngForm"
-        (ngSubmit)="saveBusinessCard(userForm)"
-        novalidate
-  >
-
-    <span class="badge badge-warning"><b>TODO having trouble debugging why select options won't change value, so made them disabled</b></span>
-    <br>
-    Please check the following information, esp. full name which is used to search.
-    <div *ngFor="let textElement of textElementsByArea; let i = index" [attr.data-index]="i">
-
-      <div class="form-group row">
-        <span>
-          <select class="form-control form-control-lg">
-
-            <option [attr.selected]="i == optionIndex ? 'selected' : null"
-                    *ngFor="let textTypeOption of textTypeOptions; let optionIndex = index"
-                    [attr.data-index]="optionIndex"
-                    value="{{textTypeOption}}"
-
-                    disabled
-            >
-            <!--TODO select list options don't change value when selected-->
-              {{textTypeOption}}
-            </option>
-          </select>
-
-
-        </span>
-        <span class="col-sm-10">
-          <input type="text"
-                 class="form-control"
-                 id="input{{i}}"
-                 value="{{textElement}}"
-          >
-        </span>
-      </div>
-    </div>
-
-    <div>
-
-      <button class="btn btn-block btn-success my-2 my-sm-0"
-              type="submit">Save Card
-      </button>
-      <br>
-    </div>
-
-  </form>
-
   <ul>
     <li *ngFor="let capture of captures">
 
@@ -88,4 +39,62 @@
       </span>
     </li>
   </ul>
+
+  <form *ngIf="textElementsByArea.phone != null"
+        #userForm="ngForm"
+        (ngSubmit)="saveBusinessCard(userForm)"
+        novalidate>
+
+
+
+    <!--<span class="badge badge-warning"><b>TODO having trouble debugging why select options won't change value, so made them disabled</b></span>-->
+    <!--<br>-->
+    <!--Please check the following information, esp. full name which is used to search.-->
+    <!--<div *ngFor="let textElement of Object.keys(textElementsByArea); let i = index" [attr.data-index]="i">-->
+
+      <!--<div class="form-group row">-->
+        <!--<span>-->
+          <!--<select class="form-control form-control-lg">-->
+
+            <!--<option [attr.selected]="i == optionIndex ? 'selected' : null"-->
+                    <!--*ngFor="let textTypeOption of textTypeOptions; let optionIndex = index"-->
+                    <!--[attr.data-index]="optionIndex"-->
+                    <!--value="{{textTypeOption}}"-->
+
+                    <!--disabled-->
+            <!--&gt;-->
+            <!--&lt;!&ndash;TODO select list options don't change value when selected&ndash;&gt;-->
+              <!--{{textTypeOption}}-->
+            <!--</option>-->
+          <!--</select>-->
+
+
+        <!--</span>-->
+        <!--<span class="col-sm-10">-->
+          <!--<input type="text"-->
+                 <!--class="form-control"-->
+                 <!--id="input{{i}}"-->
+                 <!--value="{{textElement}}"-->
+          <!--&gt;-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
+
+
+
+    <div class="form-group" *ngFor="let textType of textTypeOptions; let optionIndex = index">
+      <label for="{{textType}}">{{textType}}</label>
+      <input type="text" class="form-control" id="{{textType}}" value="{{textElementsByArea[textType]}}">
+    </div>
+
+    <div>
+
+      <button class="btn btn-block btn-success my-2 my-sm-0"
+              type="submit">Save Card
+      </button>
+      <br>
+    </div>
+
+  </form>
+
 </div>

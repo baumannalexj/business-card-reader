@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   public cardText: {};
 
-  public textElementsByArea: Array<any>;
+  public textElementsByArea = [];
 
   public base64Image: string;
 
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
 
   public clear() {
     this.captures = [];
-    this.textElementsByArea = null;
+    this.textElementsByArea = [];
   }
 
   public captureImage() {
@@ -84,13 +84,31 @@ export class DashboardComponent implements OnInit {
         try {
           this.cardText = responses[0];
 
-          // console.log(this.cardText);
-          this.textElementsByArea = responses[0].textAnnotations[0].description.split("\n");
+          let cardTextByArea = responses[0].textAnnotations[0].description.split("\n");
+
+
+          console.log(cardTextByArea);
+
+          var textElements = [];
+          this.textTypeOptions.forEach((fieldName, index) => {
+
+            textElements[fieldName] = "";
+
+            if (cardTextByArea[index]) {
+              textElements[fieldName] = cardTextByArea[index];
+            }
+
+
+          });
+
+
+          this.textElementsByArea = textElements;
           console.log(this.textElementsByArea);
 
 
           this.captures = [capture];
         } catch (error) {
+          console.error(error);
           alert("Unable to parse text. Try choosing another image with clearer text.")
         }
 
@@ -99,6 +117,7 @@ export class DashboardComponent implements OnInit {
   }
 
   saveBusinessCard(userForm: NgForm) {
+    debugger;
 
     let businessCard = {};
 
@@ -155,7 +174,6 @@ export class DashboardComponent implements OnInit {
 
         console.log(this.textElementsByArea);
         this.captures.push("data:image/png;base64," + businessCard.base64Image);
-
 
 
       })
