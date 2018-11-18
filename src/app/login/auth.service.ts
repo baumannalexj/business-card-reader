@@ -90,6 +90,7 @@ export class AuthService {
       })
       .catch(error => {
         console.error(error);
+        alert(error.message);
         throw error;
       });
   }
