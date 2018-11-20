@@ -36,9 +36,11 @@ export class AuthService {
             .update({email: user.email})
             .then(() => {
 
-              this.isAdmin = this.db.list(`admins/${user.uid}`).valueChanges()
-                .subscribe((response) => {
-                  if (response && response.length > 0) {
+              this.db.list(`admins/${user.uid}`)
+                .valueChanges()
+                .subscribe((adminResponse) => {
+                  console.log(`admin response: ${adminResponse}`);
+                  if (adminResponse && adminResponse.length > 0) {
                     this.isAdmin = true;
                   } else {
                     this.isAdmin = false;

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 
 import {AuthService} from './auth.service';
 
@@ -8,20 +8,21 @@ import {map, take, tap} from 'rxjs/operators';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {
+
+  constructor(private authService: AuthService,
+              private router: Router) {
   }
 
   //@Override
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | boolean {
-    // console.log('AUTH USER AUTH USER');
-    // console.log(this.auth.userUid);
-    // console.log('AUTH USER AUTH USER');
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 
-    // console.log('IS ADMIN IS ADMIN IS ADMIN');
-    // console.log(this.auth.isAdmin());
-    // console.log('IS ADMIN IS ADMIN IS ADMIN');
+    console.log('AUTH USER AUTH USER');
+    console.log(this.authService.userUid);
+    console.log('AUTH USER AUTH USER');
+
+    console.log('IS ADMIN IS ADMIN IS ADMIN');
+    console.log(this.authService.isAdmin);
+    console.log('IS ADMIN IS ADMIN IS ADMIN');
 
     return this.authService.user.pipe(
       take(1),
