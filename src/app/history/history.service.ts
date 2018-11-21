@@ -9,11 +9,10 @@ export class HistoryService {
 
   private searchHistoryRef: any;
   private CURRENT_SESSION_HISTORY_PATH: string;
-  public isAdmin;
+  public adminSubscription: any;
 
   constructor(private authService: AuthService,
               private db: AngularFireDatabase) {
-
 
     this.CURRENT_SESSION_HISTORY_PATH = `/currentSession/businesscardreader/${this.authService.userUid}/searches`;
 
@@ -22,7 +21,7 @@ export class HistoryService {
     this.searchHistoryRef =
       this.db.list(this.CURRENT_SESSION_HISTORY_PATH);
 
-    this.isAdmin = this.authService.isAdmin;
+    this.adminSubscription = this.authService.adminSubscription
   }
 
   getSearchHistory() {

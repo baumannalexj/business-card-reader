@@ -13,35 +13,37 @@ export class HistoryComponent implements OnInit {
 
   constructor(historyService: HistoryService) {
 
+    historyService.adminSubscription
+      .subscribe((adminResponse) => {
+        console.log(`admin response: ${adminResponse}`);
 
-    historyService
-      .getSearchHistory()
-      .subscribe(history => {
-        console.log(history);
+        this.isAdmin = (adminResponse && Object.keys(adminResponse).length > 0);
 
-        let historyAsArray = [];
+        if (this.isAdmin) {
+          historyService
+            .getSearchHistory()
+            .subscribe(history => {
+              console.log(history);
 
-        history.forEach((item) => {
+              let historyAsArray = [];
 
-          // let epochTimeMillis = Object.keys(timestampAsKey);
-          let dateTime = new Date(item.timestamp*1000);
-          // const searchText = Object.values(timestampAsKey);
-          let searchTerm = item.searchTerm;
-          historyAsArray.push(dateTime + ": " + searchTerm);
-        });
+              history.forEach((item) => {
 
-        this.searchHistory = historyAsArray;
+                // let epochTimeMillis = Object.keys(timestampAsKey);
+                let dateTime = new Date(item.timestamp * 1000);
+                // const searchText = Object.values(timestampAsKey);
+                let searchTerm = item.searchTerm;
+                historyAsArray.push(dateTime + ": " + searchTerm);
+              });
+
+              this.searchHistory = historyAsArray;
+            });
+        } else {
+          console.log("is not admin");
+          alert("This page is restricted to admins");
+        }
+
       });
-
-    // this.isAdmin = historyService.isAdmin.subscribe((response) => {
-    //   if (response && response.length > 0) {
-    //     this.isAdmin = true;
-    //     console.log("is admin");
-    //   } else {
-    //     this.isAdmin = false;
-    //     console.log("not admin");
-    //   }
-    // });
   }
 
   ngOnInit() {

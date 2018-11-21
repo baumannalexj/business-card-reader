@@ -1,4 +1,4 @@
-<!--<div *ngIf="isAdmin; else elseRestrictedBlock" >-->
+<div *ngIf="isAdmin; else elseRestrictedBlock" >
 <span class="badge badge-warning"><b>TODO: unable to persist isAdmin while navigating</b></span>
 
   <ul #thenBlock class="list-group">
@@ -7,7 +7,6 @@
       {{searchItem}}
     </li>
   </ul>
-<!--</div>-->
+</div>
 
-<!--<ng-template #elseRestrictedBlock>Restricted to Admins</ng-template>-->
-
+<ng-template #elseRestrictedBlock>Restricted to Admins</ng-template>
