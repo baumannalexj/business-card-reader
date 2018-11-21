@@ -20,9 +20,9 @@ export class AuthGuard implements CanActivate {
     console.log(this.authService.userUid);
     console.log('AUTH USER AUTH USER');
 
-    console.log('IS ADMIN IS ADMIN IS ADMIN');
-    console.log(this.authService.isAdmin);
-    console.log('IS ADMIN IS ADMIN IS ADMIN');
+    // console.log('IS ADMIN IS ADMIN IS ADMIN');
+    // console.log(this.authService.isAdmin);
+    // console.log('IS ADMIN IS ADMIN IS ADMIN');
 
     return this.authService.user.pipe(
       take(1),

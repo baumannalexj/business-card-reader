@@ -16,7 +16,7 @@ export class AuthService {
   public user: any;
   public userUid: string;
 
-  public isAdmin: any;
+  public adminSubscription: any;
 
   constructor(
     private angularFireAuth: AngularFireAuth,
@@ -32,20 +32,12 @@ export class AuthService {
           console.log(user);
           console.log('SWITCHMAP');
 
+          this.adminSubscription = this.db.list(`admins/${this.userUid}`)
+            .valueChanges();
+
           return this.db.object(`users/${user.uid}`)
             .update({email: user.email})
             .then(() => {
-
-              this.db.list(`admins/${user.uid}`)
-                .valueChanges()
-                .subscribe((adminResponse) => {
-                  console.log(`admin response: ${adminResponse}`);
-                  if (adminResponse && adminResponse.length > 0) {
-                    this.isAdmin = true;
-                  } else {
-                    this.isAdmin = false;
-                  }
-                });
 
               return this.db.object(`users/${user.uid}`).valueChanges();
 

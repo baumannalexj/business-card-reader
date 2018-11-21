@@ -169,8 +169,6 @@ export class DashboardComponent implements OnInit {
         });
 
         this.textElementsByArea = textElements;
-        //TODO can't figure out why assigning this.textElementsByArea doesn't trigger the dom to show the saved card
-        //TODO fields again, but looks no different than saveBusinessCard()
 
         console.log(this.textElementsByArea);
         this.captures.push("data:image/png;base64," + businessCard.base64Image);
